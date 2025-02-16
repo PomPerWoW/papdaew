@@ -1,0 +1,10 @@
+{
+	"name": "papdaew-auth-service",
+	"version": "1.0.0",
+	"description": "Authentication service",
+	"main": "src/server.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Papdaew"
+}

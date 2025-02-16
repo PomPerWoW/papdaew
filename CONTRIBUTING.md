@@ -73,8 +73,19 @@ git add services/auth/
 # Commit (Example)
 git commit -m "feat(auth): initialize auth service - Basic service structure"
 
-# Finish a feature
+# (Optional)
+# If you want to keep the feature branch:
+git flow feature publish feature-name
+
+# To finish feature and delete branch:
 git flow feature finish feature-name
+
+# (Optional)
+# If you kept the branch, later you can:
+# Pull latest changes
+git flow feature pull origin feature-name
+# Track remote feature
+git flow feature track feature-name
 
 # Push to remote
 git push origin develop
@@ -86,8 +97,33 @@ git push origin develop
 # Start a hotfix
 git flow hotfix start hotfix-name
 
-# Finish a hotfix
+# Make your changes
+git add services/auth/affected-file.js
+
+# Commit your changes
+git commit -m "fix(auth): resolve token expiration issue"
+
+# (Optional)
+# If you want to keep the hotfix branch:
+git flow hotfix publish hotfix-name
+
+# Before finishing hotfix:
+# Ensure main is up to date
+git pull origin main
+# Ensure develop is up to date
+git pull origin develop
+# Run tests to verify fix
+npm test
+
+# To finish hotfix and delete branch:
 git flow hotfix finish hotfix-name
+# This will:
+# 1. Merge into main
+# 2. Tag the release
+# 3. Merge back into develop
+
+# Push changes to both branches
+git push origin main develop --tags
 ```
 
 ### 3. Releases
@@ -96,8 +132,36 @@ git flow hotfix finish hotfix-name
 # Start a release
 git flow release start v1.0.0
 
-# Finish a release
+# Make release preparations
+git add package.json
+git commit -m "chore(release): bump version to 1.0.0"
+
+# Add last-minute fixes if needed
+git add services/auth/config.js
+git commit -m "fix(config): update production endpoints"
+
+# (Optional)
+# If you want to keep the release branch:
+git flow release publish v1.0.0
+
+# Before finishing release:
+# Run all tests
+npm test
+# Build the project
+npm run build
+# Add built files
+git add dist/
+git commit -m "chore(release): add built files"
+
+# To finish release and delete branch:
 git flow release finish v1.0.0
+# This will:
+# 1. Merge into main
+# 2. Tag the release
+# 3. Merge back into develop
+
+# Push all changes
+git push origin main develop --tags
 ```
 
 ## Git Workflow
@@ -124,6 +188,7 @@ Types:
 - style: Code style changes (formatting, etc.)
 - refactor: Code refactoring
 - test: Adding or updating tests
+- chore: Maintenance tasks
 
 Example:
 

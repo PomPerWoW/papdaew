@@ -94,6 +94,7 @@ git push origin develop
 ### 2. Bug Fixes
 
 ```bash
+# For bugs in production (main branch):
 # Start a hotfix
 git flow hotfix start hotfix-name
 
@@ -124,6 +125,33 @@ git flow hotfix finish hotfix-name
 
 # Push changes to both branches
 git push origin main develop --tags
+
+---
+# For bugs only in develop branch:
+# Start a feature branch instead of hotfix
+git flow feature start bug-fix-name
+
+# Make your changes
+git add services/auth/affected-file.js
+
+# Commit your changes
+git commit -m "fix(auth): resolve development issue"
+
+# (Optional)
+# If you want to keep the branch:
+git flow feature publish bug-fix-name
+
+# Before finishing:
+# Ensure develop is up to date
+git pull origin develop
+# Run tests to verify fix
+npm test
+
+# To finish and delete branch:
+git flow feature finish bug-fix-name
+
+# Push to remote
+git push origin develop
 ```
 
 ### 3. Releases

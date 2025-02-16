@@ -18,6 +18,7 @@ export default [
       'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'prefer-const': 'error',
       'no-var': 'error',
+      eqeqeq: ['error', 'always'],
     },
   },
   pluginJs.configs.recommended,

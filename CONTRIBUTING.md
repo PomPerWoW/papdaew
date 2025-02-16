@@ -29,6 +29,9 @@
 1. Install Git Flow:
 
 ```bash
+# first check if it is already available
+git flow version
+
 # macOS
 brew install git-flow
 

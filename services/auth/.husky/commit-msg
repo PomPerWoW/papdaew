@@ -1,0 +1,25 @@
+# services/auth/.husky/commit-msg
+
+echo "🔍 Checking commit message format..."
+
+# Get the commit message (the first argument is the path to the temporary file containing the message)
+commit_msg=$(cat "$1")
+
+# Regex pattern for conventional commits
+# pattern="^(feat|fix|docs|style|refactor|test|chore)(\([a-z-]+\))?: .+$"
+pattern="^(feat|fix|docs|style|refactor|test|chore)(\([a-z-]+\))?!?: .+"
+
+if ! echo "$commit_msg" | grep -qE "$pattern"; then
+    echo "❌ Invalid commit message format."
+    echo "Please use conventional commits format:"
+    echo "  feat(scope): description"
+    echo "  fix(scope): description"
+    echo "  docs(scope): description"
+    echo "  style(scope): description"
+    echo "  refactor(scope): description"
+    echo "  test(scope): description"
+    echo "  chore(scope): description"
+    exit 1
+fi
+
+echo "✅ Commit message format is valid!"

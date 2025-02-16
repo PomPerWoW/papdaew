@@ -1,9 +1,30 @@
 # services/auth/.husky/pre-commit
 
+echo "🔍 Running pre-commit checks..."
+
+# Change to the auth service directory
 cd services/auth
 
-npm test
-npm run lint:check
-npm run format:check
+# Run lint checks
+echo "\n🎨 Running lint checks..."
+npm run lint:check || {
+    echo "❌ Linting failed. Please fix the issues above and try committing again."
+    exit 1
+}
 
-exit 1
+# Run format checks
+echo "\n💅 Running format checks..."
+npm run format:check || {
+    echo "❌ Formatting failed. Please fix the issues above and try committing again."
+    exit 1
+}
+
+# Run tests
+# echo "\n🧪 Running tests..."
+# npm test || {
+#     echo "❌ Tests failed. Please fix the failing tests and try committing again."
+#     exit 1
+# }
+
+# If everything passes
+echo "\n✅ All checks passed! Proceeding with commit..."

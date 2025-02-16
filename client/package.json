@@ -13,7 +13,8 @@
     "format:check": "prettier --check src/",
     "format:fix": "prettier --write src/",
     "test:unit": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "prepare": "cd .. && husky client/.husky"
   },
   "author": "Papdaew",
   "dependencies": {
@@ -37,6 +38,7 @@
     "eslint-plugin-playwright": "^2.2.0",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-vue": "^9.32.0",
+    "husky": "^9.1.7",
     "jsdom": "^26.0.0",
     "prettier": "^3.4.2",
     "vite": "^6.0.11",

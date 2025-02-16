@@ -66,14 +66,18 @@ git flow init
 ```bash
 # Start a new feature
 git flow feature start feature-name
-git push -u origin feature/feature-name
 
-# Regular updates
-git pull origin develop
-git push origin feature/feature-name
+# Add all changes files (Example)
+git add services/auth/
+
+# Commit (Example)
+git commit -m "feat(auth): initialize auth service - Basic service structure"
 
 # Finish a feature
 git flow feature finish feature-name
+
+# Push to remote
+git push origin develop
 ```
 
 ### 2. Bug Fixes

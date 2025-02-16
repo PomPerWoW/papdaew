@@ -2,6 +2,7 @@ import globals from 'globals';
 import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import eslintPluginPrettier from 'eslint-plugin-prettier';
+import importPlugin from 'eslint-plugin-import';
 
 export default [
   {
@@ -17,8 +18,51 @@ export default [
     ignores: ['**/node_modules/**', 'coverage/**', 'dist/**', '.husky/**'],
     plugins: {
       prettier: eslintPluginPrettier,
+      import: importPlugin,
+    },
+    settings: {
+      'import/resolver': {
+        node: {
+          extensions: ['.js'],
+        },
+      },
     },
     rules: {
+      // Import Rules
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            ['parent', 'sibling'],
+            'index',
+            'object',
+            'type',
+          ],
+          pathGroups: [
+            {
+              pattern: '@auth/**',
+              group: 'internal',
+              position: 'after',
+            },
+          ],
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
+      'import/no-duplicates': 'error',
+      'import/no-unresolved': 'error',
+      'import/no-cycle': 'error',
+      'import/first': 'error',
+      'import/newline-after-import': 'error',
+      'import/no-self-import': 'error',
+      'import/no-useless-path-segments': 'error',
+
       // Possible Problems
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-unused-vars': [

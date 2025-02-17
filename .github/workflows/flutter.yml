@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: client_mobile
+        working-directory: ./client_mobile
 
     steps:
       - uses: actions/checkout@v3
@@ -42,7 +42,7 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          file: coverage/lcov.info
+          file: client_mobile/coverage/lcov.info
           flags: mobile
 
       - name: Build Android APK
@@ -59,7 +59,7 @@ jobs:
     runs-on: macos-latest
     defaults:
       run:
-        working-directory: client_mobile
+        working-directory: ./client_mobile
 
     steps:
       - uses: actions/checkout@v3

@@ -7,12 +7,14 @@ on:
       - 'feature/**'
     paths:
       - 'client_mobile/**'
+      - '.github/workflows/flutter.yml'
   pull_request:
     branches:
       - main
       - develop
     paths:
       - 'client_mobile/**'
+      - '.github/workflows/flutter.yml'
 
 jobs:
   build:

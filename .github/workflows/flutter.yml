@@ -1,14 +1,21 @@
-name: Flutter CI
+name: Flutter Mobile CI
 
 on:
   push:
     branches: [main]
+    paths:
+      - 'client_mobile/**'
   pull_request:
     branches: [main]
+    paths:
+      - 'client_mobile/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client_mobile
 
     steps:
       - uses: actions/checkout@v3
@@ -36,6 +43,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           file: coverage/lcov.info
+          flags: mobile
 
       - name: Build Android APK
         run: flutter build apk --release
@@ -44,11 +52,14 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: client_mobile/build/app/outputs/flutter-apk/app-release.apk
           retention-days: 7
 
   ios:
     runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: client_mobile
 
     steps:
       - uses: actions/checkout@v3

@@ -12,14 +12,9 @@ import 'package:client_mobile/main.dart';
 
 void main() {
   testWidgets('Home screen smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Verify that the app title is displayed
-    expect(
-      find.text('PapDaew'),
-      findsNWidgets(2),
-    ); // Once in AppBar, once in MaterialApp title
+    expect(find.text('PapDaew'), findsOneWidget);
 
     // Verify that the welcome message is displayed
     expect(find.text('Welcome to PapDaew'), findsOneWidget);

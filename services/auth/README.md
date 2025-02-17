@@ -11,11 +11,10 @@ Authentication service for Papdaew. This service handles user authentication, au
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Tech Stack](#tech-stack)
+  - [Project Structure](#project-structure)
   - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Setup](#setup)
-  - [API Documentation](#api-documentation)
-  - [Testing](#testing)
 
 ## Features
 
@@ -29,6 +28,16 @@ Authentication service for Papdaew. This service handles user authentication, au
 ## Tech Stack
 
 - Node.js
+
+## Project Structure
+
+```
+services/auth/
+├── src/
+├── tests/
+├── docs/
+├── scripts/
+```
 
 ## Getting Started
 
@@ -59,7 +68,3 @@ Authentication service for Papdaew. This service handles user authentication, au
    # Production
    npm start
    ```
-
-## API Documentation
-
-## Testing

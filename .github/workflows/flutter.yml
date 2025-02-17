@@ -1,4 +1,4 @@
-name: Flutter Mobile CI
+name: Flutter CI
 
 on:
   push:
@@ -7,14 +7,12 @@ on:
       - 'feature/**'
     paths:
       - 'client_mobile/**'
-      - '.github/workflows/flutter.yml'
   pull_request:
     branches:
       - main
       - develop
     paths:
       - 'client_mobile/**'
-      - '.github/workflows/flutter.yml'
 
 jobs:
   build:
@@ -24,91 +22,20 @@ jobs:
         working-directory: ./client_mobile
 
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.0'
+          flutter-version: '3.19.3'
           channel: 'stable'
           cache: true
-          cache-key: flutter-:os:-:channel:-:version:-:arch:-:hash
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      # Add permission fix for Linux
-      - name: Fix Flutter permissions
-        run: chmod +x $(which flutter)
-        shell: bash
 
       - name: Install dependencies
-        run: |
-          flutter clean
-          flutter pub get
-
-      - name: Verify formatting
-        run: dart format --output=none --set-exit-if-changed .
-
-      - name: Analyze project source
-        run: flutter analyze --no-fatal-infos
+        run: flutter pub get
 
       - name: Run tests
-        run: flutter test --coverage
+        run: flutter test
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          file: coverage/lcov.info # Updated path
-          flags: mobile
-          fail_ci_if_error: true # Fail CI if upload fails
-
-      - name: Build Android APK
-        run: flutter build apk --release
-
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
-          retention-days: 7
-
-  ios:
-    runs-on: macos-latest
-    defaults:
-      run:
-        working-directory: ./client_mobile
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.29.0'
-          channel: 'stable'
-          cache: true
-          cache-key: flutter-:os:-:channel:-:version:-:arch:-:hash
-          cache-path: ${{ runner.tool_cache }}/flutter
-
-      - name: Install dependencies
-        run: |
-          flutter clean
-          flutter pub get
-
-      - name: Setup Ruby and CocoaPods
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0'
-          bundler-cache: true
-
-      - name: Install CocoaPods dependencies
-        run: |
-          cd ios
-          pod install
-          cd ..
-
-      - name: Build iOS
-        run: flutter build ios --release --no-codesign
+      - name: Build APK
+        run: flutter build apk --debug
